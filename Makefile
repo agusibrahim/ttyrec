@@ -10,13 +10,13 @@ DIST =	ttyrec.c ttyplay.c ttyrec.h io.c io.h ttytime.c\
 all: $(TARGET)
 
 ttyrec: ttyrec.o io.o
-	$(CC) $(CFLAGS) -o ttyrec ttyrec.o io.o
+	$(CC) $(CFLAGS) -o ttyrec ttyrec.o io.o -fPIE -pie
 
 ttyplay: ttyplay.o io.o
-	$(CC) $(CFLAGS) -o ttyplay ttyplay.o io.o
+	$(CC) $(CFLAGS) -o ttyplay ttyplay.o io.o -fPIE -pie
 
 ttytime: ttytime.o io.o
-	$(CC) $(CFLAGS) -o ttytime ttytime.o io.o
+	$(CC) $(CFLAGS) -o ttytime ttytime.o io.o -fPIE -pie
 
 clean:
 	rm -f *.o $(TARGET) ttyrecord *~

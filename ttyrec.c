@@ -48,7 +48,7 @@
 #include <sys/ioctl.h>
 #include <sys/time.h>
 #include <sys/file.h>
-#include <sys/signal.h>
+#include <signal.h>
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
@@ -138,7 +138,7 @@ main(argc, argv)
 		case 'h':
 		case '?':
 		default:
-			fprintf(stderr, _("usage: ttyrec [-u] [-e command] [-a] [file]\n"));
+			fprintf(stderr, _("COMPILED FOR ANDROID BY Agus Ibrahim\nusage: ttyrec [-u] [-e command] [-a] [file]\n"));
 			exit(1);
 		}
 	argc -= optind;
@@ -156,7 +156,7 @@ main(argc, argv)
 
 	shell = getenv("SHELL");
 	if (shell == NULL)
-		shell = "/bin/sh";
+		shell = "/system/bin/sh";
 
 	getmaster();
 	fixtty();
@@ -198,20 +198,20 @@ doinput()
 	done();
 }
 
-#include <sys/wait.h>
+#include "wait.h"
 
 void
 finish()
 {
-#if defined(SVR4)
+//#if defined(SVR4)
 	int status;
-#else /* !SVR4 */
-	union wait status;
-#endif /* !SVR4 */
+//#else /* !SVR4 */
+//	union wait status;
+//#endif /* !SVR4 */
 	register int pid;
 	register int die = 0;
 
-	while ((pid = wait3((int *)&status, WNOHANG, 0)) > 0)
+	while ((pid = wait((int *)&status, WNOHANG, 0)) > 0)
 		if (pid == child)
 			die = 1;
 
